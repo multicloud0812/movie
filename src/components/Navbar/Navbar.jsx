@@ -11,13 +11,20 @@ const Navbar = () => {
   const navRef = useRef();
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
+    const handleScroll = () => {
       if (window.scrollY >= 80) {
-        navRef.current.classList.add('nav-dark');
+        navRef.current?.classList.add('nav-dark');
       } else {
-        navRef.current.classList.remove('nav-dark');
+        navRef.current?.classList.remove('nav-dark');
       }
-    });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup to remove the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleLogoClick = () => {
