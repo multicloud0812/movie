@@ -11,17 +11,17 @@ const Player = () => {
     name: "",
     key: "",
     published_at: "",
-    type: ""
+    typeof: ""
   });
 
   const options = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZDk1MTM5NmM2MzFjNGNlMzdhYjdjY2YzOGFmMGJkMCIsIm5iZiI6MTczMDcwNTY1OS42NDQ2MDI1LCJzdWIiOiI2NzI4Nzc5MDU1NWUzZWZjODljMzNhODMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4p1Hap_n1ojxu0309Hyi4Utqed-pENWa2nxehVT-vDM'
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZDk1MTM5NmM2MzFjNGNlMzdhYjdjY2YzOGFmMGJkMCIsIm5iZiI6MTczMjYxNDA4My4yMDYwNjYsInN1YiI6IjY3Mjg3NzkwNTU1ZTNlZmM4OWMzM2E4MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Sh6T1rCO0hY4qge2DrXU3ckV4IKZLWZJj05xlOzj9Ao'
     }
   };
-
+  
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, options)
       .then(res => res.json())
@@ -38,8 +38,8 @@ const Player = () => {
         src={`https://www.youtube.com/embed/${apiData.key}`} 
         title='trailer' 
         frameBorder='0'  
-        allowFullScreen
-      />
+        allowFullScreen></iframe>
+      
       <div className="player-info">
         <p>{apiData.published_at ? apiData.published_at.slice(0, 10) : ''}</p>
         <p>{apiData.name}</p>

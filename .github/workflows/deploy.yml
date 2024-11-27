@@ -1,0 +1,29 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to EC2
+      env:
+        HOST_IP: 13.125.218.60
+        USERNAME: ${{ secrets.USERNAME }}
+      run: |
+        echo "Deploying to ${HOST_IP}"
+        ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'mkdir -p ~/app'
+        rsync -avz --exclude='.git' . ${USERNAME}@${HOST_IP}:~/app/
+        ssh ${USERNAME}@${HOST_IP} 'cd ~/app && ./deploy.sh'
