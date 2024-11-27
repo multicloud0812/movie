@@ -20,10 +20,10 @@ jobs:
 
     - name: Deploy to EC2
       env:
-        HOST_IP: ${{ secrets.HOST_IP }}
-        USERNAME: ${{ secrets.USERNAME }}
+        HOST_IP: ${{ vars.HOST_IP }}
+        USERNAME: ${{ vars.USERNAME }}
       run: |
         echo "Deploying to ${HOST_IP}"
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/brandon-keypair.pem ${USERNAME}@${HOST_IP} 'mkdir -p ~/movie'
+        ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'mkdir -p ~/movie'
         rsync -avz --exclude='.git' -e "ssh -i ~/.ssh/brandon-keypair.pem" . ${USERNAME}@${HOST_IP}:~/movie/
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/brandon-keypair.pem ${USERNAME}@${HOST_IP} 'cd ~/movie && ./deploy.sh'
+        ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'cd ~/movie && ./deploy.sh'
