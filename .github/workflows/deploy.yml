@@ -25,5 +25,5 @@ jobs:
       run: |
         echo "Deploying to ${HOST_IP}"
         ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'mkdir -p ~/movie'
-        rsync -avz --exclude='.git' -e "ssh -i ~/.ssh/brandon-keypair.pem" . ${USERNAME}@${HOST_IP}:~/movie/
+        rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . ${USERNAME}@${HOST_IP}:~/movie/
         ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'cd ~/movie && ./deploy.sh'
