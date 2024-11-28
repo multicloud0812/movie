@@ -16,12 +16,12 @@ jobs:
     - name: Set up SSH for AWS
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
 
     - name: Deploy to AWS
       env:
-        HOST_IP: ${{ secrets.HOST_IP }}
-        USERNAME: ${{ secrets.USERNAME }}
+        HOST_IP: ${{ secrets.AWS_HOST_IP }}
+        USERNAME: ${{ secrets.AWS_USERNAME }}
       run: |
         echo "Deploying to ${HOST_IP}"
         ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'mkdir -p ~/movie'
@@ -40,10 +40,10 @@ jobs:
 
     - name: Deploy to Azure
       env:
-        AZURE_HOST_IP: ${{ secrets.AZURE_HOST_IP }}
-        AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+        HOST_IP: ${{ secrets.AZURE_HOST_IP }}
+        USERNAME: ${{ secrets.AZURE_USERNAME }}
       run: |
-        echo "Deploying to ${AZURE_HOST_IP}"
-        ssh -o StrictHostKeyChecking=no ${AZURE_USERNAME}@${AZURE_HOST_IP} 'mkdir -p ~/movie'
-        rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . ${AZURE_USERNAME}@${AZURE_HOST_IP}:~/movie/
-        ssh -o StrictHostKeyChecking=no ${AZURE_USERNAME}@${AZURE_HOST_IP} 'cd ~/movie && ./deploy.sh'
+        echo "Deploying to ${HOST_IP}"
+        ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'mkdir -p ~/movie'
+        rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . ${USERNAME}@${HOST_IP}:~/movie/
+        ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'cd ~/movie && ./deploy.sh'
