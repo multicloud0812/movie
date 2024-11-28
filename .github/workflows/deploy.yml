@@ -38,6 +38,6 @@ jobs:
     - name: Deploy to Azure
       run: |
         echo "Deploying to 52.231.226.97"
-        ssh -o StrictHostKeyChecking=no azureuser@52.231.226.97 'mkdir -p ~/movie'
-        rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . azureuser@52.231.226.97:~/movie/
-        ssh -o StrictHostKeyChecking=no azureuser@52.231.226.97 'cd ~/movie && ./deploy.sh'
+        ssh -o StrictHostKeyChecking=no cb-user@52.231.226.97 'mkdir -p ~/movie'
+        rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . cb-user@52.231.226.97:~/movie/
+        ssh -o StrictHostKeyChecking=no cb-user@52.231.226.97 'cd ~/movie && ./deploy.sh'
