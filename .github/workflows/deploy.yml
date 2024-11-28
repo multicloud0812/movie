@@ -20,8 +20,8 @@ jobs:
 
     - name: Deploy to AWS
       env:
-        AWS_HOST_IP: ${{ secrets.AWS_HOST_IP }}
-        AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
+        AWS_HOST_IP: ${{ secrets.HOST_IP }}
+        AWS_USERNAME: ${{ secrets.USERNAME }}
       run: |
         echo "Deploying to ${AWS_HOST_IP}"
         ssh -o StrictHostKeyChecking=no ${AWS_USERNAME}@${AWS_HOST_IP} 'mkdir -p ~/movie'
