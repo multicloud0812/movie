@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy_aws:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +20,17 @@ jobs:
 
     - name: Deploy to AWS
       run: |
-        echo "Deploying to 52.78.68.91"
+        echo "Deploying to AWS (Linux)"
         ssh -o StrictHostKeyChecking=no ec2-user@52.78.68.91 'mkdir -p ~/movie'
         rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . ec2-user@52.78.68.91:~/movie/
         ssh -o StrictHostKeyChecking=no ec2-user@52.78.68.91 'cd ~/movie && ./deploy.sh'
+
+  deploy_azure:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Set up SSH for Azure
       uses: webfactory/ssh-agent@v0.5.3
@@ -37,7 +44,7 @@ jobs:
 
     - name: Deploy to Azure
       run: |
-        echo "Deploying to 52.231.226.97"
+        echo "Deploying to Azure (Ubuntu)"
         ssh -o StrictHostKeyChecking=no cb-user@52.231.226.97 'mkdir -p ~/movie'
         rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . cb-user@52.231.226.97:~/movie/
         ssh -o StrictHostKeyChecking=no cb-user@52.231.226.97 'cd ~/movie && ./deploy.sh'
