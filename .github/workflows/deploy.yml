@@ -20,13 +20,13 @@ jobs:
 
     - name: Deploy to AWS
       env:
-        AWS_HOST_IP: ${{ secrets.HOST_IP }}
-        AWS_USERNAME: ${{ secrets.USERNAME }}
+        HOST_IP: ${{ secrets.HOST_IP }}
+        USERNAME: ${{ secrets.USERNAME }}
       run: |
-        echo "Deploying to ${AWS_HOST_IP}"
-        ssh -o StrictHostKeyChecking=no ${AWS_USERNAME}@${AWS_HOST_IP} 'mkdir -p ~/movie'
-        rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . ${AWS_USERNAME}@${AWS_HOST_IP}:~/movie/
-        ssh -o StrictHostKeyChecking=no ${AWS_USERNAME}@${AWS_HOST_IP} 'cd ~/movie && ./deploy.sh'
+        echo "Deploying to ${HOST_IP}"
+        ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'mkdir -p ~/movie'
+        rsync -avz --exclude='.git' --include='deploy.sh' --include='*/' --exclude='*' . ${USERNAME}@${HOST_IP}:~/movie/
+        ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOST_IP} 'cd ~/movie && ./deploy.sh'
 
     - name: Set up SSH for Azure
       uses: webfactory/ssh-agent@v0.5.3
