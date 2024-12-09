@@ -24,7 +24,7 @@ const Home = () => {
         <img src={hero_banner} alt="" className='banner-img'/>
         <div className="hero-caption">
           <img src={hero_title} alt="" className='caption-img' />
-          <p> 오징어 게임67890 더욱 강렬한 도전, <br></br>예상치 못한 반전, 숨 막히는 서스펜스를 가득 안고 돌아옵니다.
+          <p> 오징어 게임12345 더욱 강렬한 도전, <br></br>예상치 못한 반전, 숨 막히는 서스펜스를 가득 안고 돌아옵니다.
           <br></br>모든 선택이 중요하고 위기가 그 어느 때보다도 높은 상황을 체험해보세요. <br></br>모두가 이야기하게 될 모험을 놓치지 마세요!</p>
           
           <div className="hero-btns">
